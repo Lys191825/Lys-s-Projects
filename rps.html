@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>RPS - Betting Game</title>
+  <style>
+    body {
+      background-color: black;
+      text-align: center;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 24px;
+      color: white;
+    }
+
+    .btn {
+      background-color: black;
+      border: 2px solid white;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 39%;
+      margin: 10px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .btn:hover {
+      background-color: white;
+      color: black;
+    }
+
+    #moneyDisplay {
+      font-size: 30px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Rock Paper Scissors - Betting Game</h2>
+
+  <button class="btn" onclick="playGame('rock')">Rock</button>
+  <button class="btn" onclick="playGame('paper')">Paper</button>
+  <button class="btn" onclick="playGame('scissors')">Scissors</button>
+
+  <p id="moneyDisplay">Money: $500</p>
+
+  <script>
+    let money = 500; // Starting money
+
+    function playGame(playerMove) {
+      if (money < 100) {
+        alert("Not enough money to play!");
+        return;
+      }
+
+      money -= 100; // Deduct entry fee
+
+      const moves = ['rock', 'paper', 'scissors'];
+      const computerMove = moves[Math.floor(Math.random() * 3)];
+
+      let result = '';
+      if (playerMove === computerMove) {
+        result = 'Tie! You get your money back.';
+        money += 100; // Refund for a tie
+      } else if (
+        (playerMove === 'rock' && computerMove === 'scissors') ||
+        (playerMove === 'paper' && computerMove === 'rock') ||
+        (playerMove === 'scissors' && computerMove === 'paper')
+      ) {
+        result = 'You win! You earn $200.';
+        money += 200; // Reward for a win
+      } else {
+        result = 'You lose! You lost your $100.';
+      }
+
+      alert(`You picked ${playerMove}. Computer picked ${computerMove}. ${result}`);
+
+      document.getElementById("moneyDisplay").innerText = `Money: $${money}`;
+    }
+  </script>
+
+</body>
+</html>
